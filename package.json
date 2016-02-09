@@ -1,7 +1,7 @@
 {
   "name": "esnext-decorators",
   "version": "0.0.1",
-  "description": "",
+  "description": "A collection of ES.next decorators",
   "keywords": [],
   "homepage": "https://github.com/vinsonchuong/esnext-decorators",
   "bugs": "https://github.com/vinsonchuong/esnext-decorators/issues",
