@@ -1,17 +1,23 @@
 # esnext-decorators
 [![Build Status](https://travis-ci.org/vinsonchuong/esnext-decorators.svg?branch=master)](https://travis-ci.org/vinsonchuong/esnext-decorators)
-[![Code Climate](https://codeclimate.com/github/vinsonchuong/esnext-decorators/badges/gpa.svg)](https://codeclimate.com/github/vinsonchuong/esnext-decorators)
 
-Prints Hello World!
+A collection of ES.next decorators.
 
 ## Installing
 `esnext-decorators` is available as an
 [npm package](https://www.npmjs.com/package/esnext-decorators).
 
 ## Usage
-From the command line, run:
-```bash
-esnext-decorators
+### Private Class Members
+```js
+import {privates} from 'esnext-decorators';
+
+class Foo {
+  method1() {}
+
+  @private
+  method2() {}
+}
 ```
 
 ## Development
