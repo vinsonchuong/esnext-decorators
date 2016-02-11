@@ -1,3 +1,3 @@
-export function privates() {
-  return 'Hello World!';
+export function privates(prototype, method) {
+  console.log(prototype, method);
 }

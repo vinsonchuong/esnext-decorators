@@ -13,10 +13,13 @@ A collection of ES.next decorators.
 import {privates} from 'esnext-decorators';
 
 class Foo {
-  method1() {}
+  constructor() {
+  }
 
-  @private
-  method2() {}
+  publicMethod() {}
+
+  @privates
+  privateMethod() {}
 }
 ```
 
