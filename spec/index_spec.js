@@ -1,21 +1,22 @@
-import {privates} from 'esnext-decorators';
+import {protectPrivates, markPrivate} from 'esnext-decorators';
 
 describe('esnext-decorators', () => {
-  describe('@privates', () => {
+  describe('@protectPrivates', () => {
     it('allows declaring methods private', () => {
+      @protectPrivates
       class Klass {
         publicMethod() {
           return this.privateMethod() + 1;
         }
 
-        @privates
+        @markPrivate
         privateMethod() {
-          return 42;
+          return 43;
         }
       }
       const instance = new Klass();
 
-      expect(instance.publicMethod()).toBe(43);
+      expect(instance.publicMethod()).toBe(44);
       expect(instance.privateMethod).not.toEqual(jasmine.any(Function));
     });
   });
