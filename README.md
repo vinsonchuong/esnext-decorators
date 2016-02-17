@@ -8,17 +8,32 @@ A collection of ES.next decorators.
 [npm package](https://www.npmjs.com/package/esnext-decorators).
 
 ## Usage
-### Private Class Members
+### Private Instance Members
 ```js
-import {privates} from 'esnext-decorators';
+import {encapsulated, internal} from 'esnext-decorators';
 
+@encapsulated
 class Foo {
   constructor() {
+    this.privateVariable = 42;
+    this.privateReadableVariable = 'foo';
+    this.privateWritableVariable = 'bar';
+  }
+
+  get exposedReadableVariable() {
+    return this.privateReadableVariable;
+  }
+
+  get exposedWritableVariable() {
+    return this.privateWritableVariable;
+  }
+  set exposedWritableVariable(newValue) {
+    this.privateWritableVariable = newValue;
   }
 
   publicMethod() {}
 
-  @privates
+  @internal
   privateMethod() {}
 }
 ```

@@ -1,8 +1,16 @@
-export function protectPrivates(Klass) {
-  const publicMethodNames = [
-    ...Object.getOwnPropertyNames(Klass.prototype),
-    ...Object.getOwnPropertySymbols(Klass.prototype)
-  ].filter(method => !Klass.prototype[method].private);
+export function encapsulated(Klass) {
+  const publicMemberNames = Reflect.ownKeys(Klass.prototype)
+  .filter((name) => {
+    const implementation = Klass.prototype[name];
+    return !implementation || !implementation.private;
+  });
+  const publicMethodNames = publicMemberNames.filter((name) => {
+    const implementation = Klass.prototype[name];
+    return implementation && !implementation.private;
+  });
+  const publicVariableNames = publicMemberNames.filter((name) =>
+    !Klass.prototype[name]
+  );
 
   const instances = new WeakMap();
   class Wrapper {
@@ -12,15 +20,28 @@ export function protectPrivates(Klass) {
   }
 
   for (const name of publicMethodNames) {
-    Wrapper.prototype[name] = function(...args) {
+    Wrapper.prototype[name] = function wrapperMethod(...args) {
       const instance = instances.get(this);
-      return instance[name].call(instance, ...args);
+      return instance[name](...args);
     };
+  }
+
+  for (const name of publicVariableNames) {
+    Reflect.defineProperty(Wrapper.prototype, name, {
+      get() {
+        const instance = instances.get(this);
+        return instance[name];
+      },
+      set(value) {
+        const instance = instances.get(this);
+        instance[name] = value;
+      }
+    });
   }
 
   return Wrapper;
 }
 
-export function markPrivate(prototype, method) {
+export function internal(prototype, method) {
   prototype[method].private = true;
 }
