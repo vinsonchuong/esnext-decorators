@@ -8,6 +8,10 @@ A collection of ES.next decorators.
 [npm package](https://www.npmjs.com/package/esnext-decorators).
 
 ## Usage
+`esnext-decorators` has been tested in a Babel 6 environment with the plugin
+`babel-plugin-transform-decorators-legacy`. It should also work in a Babel 5
+environment set to the correct stage but is untested.
+
 ### Private Instance Members
 ```js
 import {encapsulated, internal} from 'esnext-decorators';
